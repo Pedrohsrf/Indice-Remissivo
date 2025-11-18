@@ -1,3 +1,5 @@
+package Estruturas;
+
 import java.util.NoSuchElementException;
 
 public class ListaEncadeada {

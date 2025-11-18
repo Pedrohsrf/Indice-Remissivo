@@ -1,3 +1,5 @@
+package Estruturas;
+
 public class ArvoreBalanceada {
 
     class Nodo {
