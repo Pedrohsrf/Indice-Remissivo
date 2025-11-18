@@ -2,6 +2,7 @@ import Classes.GerenciadorArquivos;
 import Classes.IndiceRemissivo;
 
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.List;
 
 /*
@@ -31,14 +32,14 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("------ ENTRADAS ------");
 
-        List<String> texto = GerenciadorArquivos.lerArquivo(Paths.get("texto.txt"));
+        String[] texto = (GerenciadorArquivos.lerArquivo(Paths.get("texto.txt")).split("\r?\n"));
         System.out.println("Texto:");
-        System.out.println(texto);
+        System.out.println(Arrays.toString(texto));
         System.out.println();
 
-        List<String> palavrasChave = GerenciadorArquivos.lerArquivo(Paths.get("palavras-chave.txt"));
+        String[] palavrasChave = (GerenciadorArquivos.lerArquivo(Paths.get("palavras-chave.txt")).split(","));
         System.out.println("Palavras-chave:");
-        System.out.println(palavrasChave);
+        System.out.println(Arrays.toString(palavrasChave));
         System.out.println();
 
         System.out.println("------ SAÍDA ------");
@@ -46,7 +47,8 @@ public class Main {
         String indiceRemissivo = IndiceRemissivo.indiceRemissivo(texto, palavrasChave);
         GerenciadorArquivos.escreverArquivo(Paths.get("indice-remissivo.txt"), indiceRemissivo);
         System.out.println("Índice remissivo:");
-        System.out.println(indiceRemissivo);
+        System.out.println(GerenciadorArquivos.lerArquivo(Paths.get("indice-remissivo.txt")));
+
     }
 
 }
