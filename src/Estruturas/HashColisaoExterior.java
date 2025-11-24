@@ -16,14 +16,12 @@ public class HashColisaoExterior {
         nElementos = 0;
     }
 
-    // Normaliza APENAS para hash (sem destruir original)
     private String normalizar(String p) {
         if (p == null) return "";
 
         String s = Normalizer.normalize(p.toLowerCase(), Normalizer.Form.NFD);
         s = s.replaceAll("\\p{M}", "");
 
-        // Mantém letras + hífen
         s = s.replaceAll("[^a-z\\-]", "");
 
         return s;
