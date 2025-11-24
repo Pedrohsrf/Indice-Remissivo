@@ -58,7 +58,9 @@ public class IndiceRemissivo {
     }
 
     private static String limpar(String p) {
-        return p.replaceAll("^[^\\p{L}\\-]+", "")
-                .replaceAll("[^\\p{L}\\-]+$", "");
+        if (p == null || p.isEmpty()) return "";
+        p = p.replaceAll("^[^\\p{L}]+", "");
+        p = p.replaceAll("[^\\p{L}]+$", "");
+        return p.trim();
     }
 }

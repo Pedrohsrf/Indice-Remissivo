@@ -28,6 +28,7 @@ public class HashColisaoExterior {
     }
 
     private int hash(String normalizada) {
+            normalizada = normalizar(normalizada);
         if (normalizada.isEmpty()) return -1;
 
         char c = normalizada.charAt(0);

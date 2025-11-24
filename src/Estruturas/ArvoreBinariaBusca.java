@@ -15,10 +15,18 @@ public class ArvoreBinariaBusca {
     }
 
     private Nodo raiz;
+    private int nElementos;
+
+    public ArvoreBinariaBusca() {
+        this.raiz = null;
+        this.nElementos = 0;
+    }
 
     public boolean inserirOuAtualizar(String original, String normalizada, int linha) {
+
+        int antes = nElementos;
         raiz = inserirRec(raiz, original, normalizada, linha);
-        return true;
+        return nElementos > antes;
     }
 
     private Nodo inserirRec(Nodo nodo, String original, String normalizada, int linha) {
@@ -26,12 +34,16 @@ public class ArvoreBinariaBusca {
         if (nodo == null) {
             Palavra p = new Palavra(original, normalizada);
             p.adicionarOcorrencia(linha);
+            nElementos++;
             return new Nodo(p);
         }
 
         int cmp = normalizada.compareTo(nodo.palavra.getNormalizada());
 
         if (cmp == 0) {
+
+            nodo.palavra.atualizarOriginal(original);
+
             nodo.palavra.adicionarOcorrencia(linha);
         }
         else if (cmp < 0) {

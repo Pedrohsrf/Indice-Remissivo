@@ -1,17 +1,17 @@
 ação — 11, 17
 ações — 10, 17
-ciência-da-computação; — 4
+ciência-da-computação — 4
 computação — 1, 17
 Computações — 2, 17
-dia-a-dia, — 22
-educação, — 19
+dia-a-dia — 22
+educação — 19
 modelagem-de-dados — 14
-mãe-d'água, — 22
-passo-a-passo, — 22
-PROGRAMAR, — 25
+mãe-d'água — 22
+passo-a-passo — 22
+PROGRAMAR — 25
 programar-bem — 7
-programação. — 5, 25
-programações. — 25
-proteção, — 19
+programação — 5, 25
+programações — 25
+proteção — 19
 prática — 7, 17
 práticas — 8, 17
