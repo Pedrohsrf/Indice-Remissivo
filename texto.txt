@@ -1,8 +1,25 @@
-asd
-Good programming is not learned from
-generalities, but by seeing how significant
-programs can be made clean, easy to
-read, easy to maintain and modify,
-human-engineered, efficient, and reliable,
-by the application of common sense and
-by the use of good programming practices.
+A computação moderna evoluiu rapidamente. A Computação, com acentos e variações, aparece em vários contextos:
+— Computações avançadas;
+— computação-gráfica;
+— ciência-da-computação;
+— programação.
+
+A prática de programar-bem exige atenção, prática constante e resolução de problemas.
+Praticar é essencial, e práticas diferentes geram resultados melhores.
+
+Além disso, ações eficientes dependem de organização. As ações devem ser bem planejadas,
+pois uma ação mal executada causa retrabalho.
+
+O desenvolvimento de software envolve várias áreas: back-end, front-end, testes unitários,
+modelagem-de-dados e integração-contínua.
+
+Alguns termos aparecem no plural e no singular:
+desenvolvedor, desenvolvedores, computação, computações, ação, ações, prática, práticas.
+
+Também temos palavras com cedilha: educação, iniciação, diferenciação, proteção, condução.
+
+E palavras com hífen que devem ser preservadas:
+passo-a-passo, dia-a-dia, mãe-d'água, cobra-corá, quebra-cabeça.
+
+Por fim, várias formas semelhantes:
+Programação, programação!, PROGRAMAR, programar?, programações.

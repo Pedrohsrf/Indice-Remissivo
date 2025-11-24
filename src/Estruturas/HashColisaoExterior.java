@@ -1,333 +1,67 @@
 package Estruturas;
 
+import Classes.Palavra;
+import java.text.Normalizer;
+
 public class HashColisaoExterior {
 
-    public ListaDuplamenteEncadeada vetor[];
-    public int nElementos;
-
-    public HashColisaoExterior(int capacidade) {
-        this.vetor = new ListaDuplamenteEncadeada[capacidade];
-        for (int i = 0; i < vetor.length; i++) {
-            this.vetor[i] = new ListaDuplamenteEncadeada();
-        }
-        this.nElementos = 0;
-    }
-
-    public int tamanho() {
-        return this.nElementos;
-    }
-
-    public void imprime() {
-        System.out.println("Chave\tValor");
-        for (int i = 0; i < vetor.length; i++) {
-            System.out.print(i + " -->\t");
-            vetor[i].imprime();
-        }
-    }
-
-    private int funcaoHashDiv(Integer elemento) {
-        return elemento % this.vetor.length;
-    }
-
-    public void insere(Integer elemento) {
-        int endereco = funcaoHashDiv(elemento);
-        this.vetor[endereco].insereFinal(elemento);
-        this.nElementos++;
-    }
-
-    public boolean remove(int elemento) {
-        int endereco = funcaoHashDiv(elemento);
-        boolean removeu = this.vetor[endereco].removeElemento(elemento);
-
-        if(removeu) this.nElementos--;
-
-        return removeu;
-    }
-
-    public boolean contem(int elemento) {
-        int endereco = funcaoHashDiv(elemento);
-        return this.vetor[endereco].contem(elemento);
-    }
-}
-
-class ListaDuplamenteEncadeada {
-
-    private static class Nodo {
-        public int elemento;
-        public Nodo proximo;
-        public Nodo anterior;
-
-        public Nodo(int elemento) {
-            this.elemento = elemento;
-            this.proximo = null;
-            this.anterior = null;
-        }
-    }
-
-    private Nodo inicio;
-    private Nodo fim;
+    private ArvoreBinariaBusca[] tabela;
     private int nElementos;
 
-    public ListaDuplamenteEncadeada() {
-        this.inicio = null;
-        this.fim = null;
-        this.nElementos = 0;
+    public HashColisaoExterior() {
+        tabela = new ArvoreBinariaBusca[26];
+        for (int i = 0; i < 26; i++) {
+            tabela[i] = new ArvoreBinariaBusca();
+        }
+        nElementos = 0;
     }
 
-    public boolean estaVazia() {
-        return this.nElementos == 0;
+    // Normaliza APENAS para hash (sem destruir original)
+    private String normalizar(String p) {
+        if (p == null) return "";
+
+        String s = Normalizer.normalize(p.toLowerCase(), Normalizer.Form.NFD);
+        s = s.replaceAll("\\p{M}", "");
+
+        // Mantém letras + hífen
+        s = s.replaceAll("[^a-z\\-]", "");
+
+        return s;
     }
 
-    public int tamanho() {
-        return this.nElementos;
+    private int hash(String normalizada) {
+        if (normalizada.isEmpty()) return -1;
+
+        char c = normalizada.charAt(0);
+
+        if (c < 'a' || c > 'z') return -1;
+
+        return c - 'a';
     }
 
-    public void imprime() {
-        System.out.print("[");
-        Nodo cursor = this.inicio;
-        for(int i=0;i<this.nElementos;i++) {
-            System.out.print(cursor.elemento + " ");
-            cursor = cursor.proximo;
-        }
-        System.out.println("]");
+    public void inserirOuAtualizar(String palavraOriginal, int linha) {
+
+        String normalizada = normalizar(palavraOriginal);
+
+        int pos = hash(normalizada);
+        if (pos == -1) return;
+
+        tabela[pos].inserirOuAtualizar(palavraOriginal, normalizada, linha);
     }
 
-    public void imprimeInverso() {
-        System.out.print("[");
-        Nodo cursor = this.fim;
-        for(int i=0;i<this.nElementos;i++) {
-            System.out.print(cursor.elemento + " ");
-            cursor = cursor.anterior;
-        }
-        System.out.println("]");
+    public Palavra buscar(String palavraOriginal) {
+
+        String normalizada = normalizar(palavraOriginal);
+
+        int pos = hash(normalizada);
+        if (pos == -1) return null;
+
+        return tabela[pos].buscar(normalizada);
     }
 
-    public void insereInicio(int elemento) {
-
-        Nodo novo = new Nodo(elemento);
-
-        if(this.estaVazia()) {
-            this.fim = novo;
-        } else {
-            novo.proximo = this.inicio;
-            this.inicio.anterior = novo;
-        }
-
-        this.inicio = novo;
-        this.nElementos++;
-
-    }
-
-    public Integer removeInicio() {
-
-        if(this.estaVazia()) {
-            System.out.println("Lista vazia. Não é possível remover.");
-            return null;
-        }
-
-        Nodo nodoRemovido = this.inicio;
-
-        if(this.nElementos == 1) {
-            this.inicio = null;
-            this.fim = null;
-        } else {
-            this.inicio = nodoRemovido.proximo;
-            this.inicio.anterior = null;
-
-            nodoRemovido.proximo = null;
-        }
-
-        this.nElementos--;
-
-        return nodoRemovido.elemento;
-    }
-
-    public void insereFinal(int elemento) {
-
-        Nodo novo = new Nodo(elemento);
-
-        if(this.estaVazia()) {
-            this.inicio = novo;
-        } else {
-            this.fim.proximo = novo;
-            novo.anterior = this.fim;
-        }
-
-        this.fim = novo;
-
-        this.nElementos++;
-    }
-
-    public Integer removeFinal() {
-
-        if(this.estaVazia()) {
-            System.out.println("Lista vazia. Não é possível remover.");
-            return null;
-        }
-
-        Nodo nodoRemovido = this.fim;
-
-        if(this.nElementos == 1) {
-
-            this.inicio = null;
-            this.fim = null;
-        } else {
-
-            this.fim = nodoRemovido.anterior;
-
-            nodoRemovido.anterior.proximo = null;
-            nodoRemovido.anterior = null;
-        }
-
-        this.nElementos--;
-
-        return nodoRemovido.elemento;
-    }
-
-    public void inserePosicao(int elemento, int pos) {
-
-        if(pos < 0) {
-            System.out.println("Posição negativa. Não é possível inserir.");
-            return;
-        } else if(pos > this.nElementos) {
-            System.out.println("Posição inválida. Não é possível inserir.");
-            return;
-        }
-
-        if(pos == 0) {
-            this.insereInicio(elemento);
-            return;
-        } else if(pos == this.nElementos ) {
-            this.insereFinal(elemento);
-            return;
-        }
-
-        Nodo novo = new Nodo(elemento);
-
-        Nodo cursor = this.inicio;
-        for(int i=1;i<=pos;i++) {
-            cursor = cursor.proximo;
-        }
-
-        novo.anterior = cursor.anterior;
-        novo.proximo = cursor;
-
-        cursor.anterior.proximo = novo;
-        cursor.anterior = novo;
-
-        this.nElementos++;
-
-    }
-
-    public Integer removePosicao(int pos) {
-
-        if(this.estaVazia()) {
-            System.out.println("Lista vazia. Não é possível remover.");
-            return null;
-        } else if(pos < 0) {
-            System.out.println("Posição Negativa. Não é possível remover");
-            return null;
-        } else if(pos >= this.nElementos) {
-            System.out.println("Posição inválida. Não é possível remover.");
-            return null;
-        }
-
-        if(pos == 0) {
-            return this.removeInicio();
-        } else if(pos == this.nElementos-1) {
-            return this.removeFinal();
-        }
-
-        Nodo cursor = this.inicio;
-        for(int i=1;i<=pos;i++) {
-            cursor = cursor.proximo;
-        }
-
-        Nodo nodoRemovido = cursor;
-
-        nodoRemovido.anterior.proximo = nodoRemovido.proximo;
-        nodoRemovido.proximo.anterior = nodoRemovido.anterior;
-
-        nodoRemovido.anterior = null;
-        nodoRemovido.proximo = null;
-
-        this.nElementos--;
-
-        return nodoRemovido.elemento;
-
-    }
-
-    public void insereOrdenado(int elemento) {
-
-        if(this.estaVazia()) {
-            this.insereInicio(elemento);
-            return;
-        }
-
-        boolean flagInseriu = false;
-
-        Nodo cursor = this.inicio;
-        for(int i=0;i<this.nElementos;i++) {
-            if(cursor.elemento > elemento) {
-                this.inserePosicao(elemento, i);
-                flagInseriu = true;
-                break;
-            }
-            cursor = cursor.proximo;
-        }
-
-        if(!flagInseriu) {
-            this.insereFinal(elemento);
+    public void imprimir(StringBuilder sb) {
+        for (int i = 0; i < 26; i++) {
+            tabela[i].imprimirOrdenado(sb);
         }
     }
-
-    public boolean removeElemento(int elemento) {
-
-        Nodo cursor = this.inicio;
-        int i;
-        for (i = 0; i < this.nElementos; i++) {
-            if(cursor.elemento == elemento) {
-                break;
-            }
-            cursor = cursor.proximo;
-        }
-
-        if(i == this.nElementos) {
-            return false;
-        }
-
-        this.removePosicao(i);
-
-        return true;
-
-    }
-
-    public Integer acesse(int pos) {
-
-        if (pos < 0 || pos >= this.nElementos) {
-            return null;
-        }
-
-        Nodo cursor = this.inicio;
-        for (int i = 0; i < pos; i++) {
-            cursor = cursor.proximo;
-        }
-
-        return cursor.elemento;
-
-    }
-
-    public boolean contem(int elemento) {
-
-        Nodo cursor = this.inicio;
-        for (int i = 0; i < this.nElementos; i++) {
-            if(cursor.elemento == elemento) {
-                return true;
-            }
-            cursor = cursor.proximo;
-        }
-
-        return false;
-    }
-
 }

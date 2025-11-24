@@ -113,36 +113,29 @@ public class ListaEncadeada {
             n_elementos--;
         }
     }
-    public void imprimirLista() {
+
+    public boolean contem(int linha) {
         Nodo atual = primeiro;
-        System.out.print("Lista: ");
-        while (atual != null) {
-            System.out.print(atual.elemento + " ");
+        while(atual != null) {
+            if (atual.elemento == linha) {
+                return true;
+            }
             atual = atual.proximo;
         }
-        System.out.println();
+        return false;
     }
-    public static void main(String[] args) {
-        ListaEncadeada lista = new ListaEncadeada();
-        lista.insereInicio(3);
-        lista.insereInicio(2);
-        lista.insereInicio(1);
-        lista.imprimirLista(); // Saída: 1 2 3
 
-        lista.insereFinal(4);
-        lista.insereFinal(5);
-        lista.imprimirLista(); // Saída: 1 2 3 4 5
-
-        lista.inserePosicao(10, 2);
-        lista.imprimirLista(); // Saída: 1 2 10 3 4 5
-
-        lista.removePosicao(3);
-        lista.imprimirLista(); // Saída: 1 2 10 4 5
-
-        lista.removeInicio();
-        lista.imprimirLista(); // Saída: 2 10 4 5
-
-        lista.removeFinal();
-        lista.imprimirLista(); // Saída: 2 10 4
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        Nodo atual = primeiro;
+        while (atual != null) {
+            sb.append(atual.elemento);
+            if (atual.proximo != null) {
+                sb.append(", ");
+            }
+            atual = atual.proximo;
+        }
+        return sb.toString();
     }
 }
