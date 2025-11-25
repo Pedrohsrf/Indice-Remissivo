@@ -12,8 +12,6 @@ public class IndiceRemissivo {
 
         List<String> linhas = Files.readAllLines(arquivoTexto);
 
-        List<Palavra> listaPalavras = new ArrayList<>();
-
         HashColisaoExterior hash = new HashColisaoExterior();
 
         for (int i = 0; i < linhas.size(); i++) {
@@ -25,9 +23,7 @@ public class IndiceRemissivo {
 
                 String limpa = limpar(p);
                 if (limpa.isEmpty()) continue;
-
-                listaPalavras.add(new Palavra(p, p));
-                hash.inserirOuAtualizar(p, i + 1);
+                hash.inserirOuAtualizar(limpa, i + 1);
             }
         }
 
