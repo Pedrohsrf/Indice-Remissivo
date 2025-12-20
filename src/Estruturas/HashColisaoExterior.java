@@ -21,7 +21,6 @@ public class HashColisaoExterior {
 
         String s = Normalizer.normalize(p.toLowerCase(), Normalizer.Form.NFD);
         s = s.replaceAll("\\p{M}", "");
-
         s = s.replaceAll("[^a-z\\-]", "");
 
         return s;

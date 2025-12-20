@@ -54,7 +54,6 @@ public class Palavra implements Comparable<Palavra> {
             if (Character.isLetter(ultimo) || ultimo == '-') {
                 break;
             }
-
             s = s.substring(0, s.length() - 1);
         }
 

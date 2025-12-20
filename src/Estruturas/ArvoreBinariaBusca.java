@@ -41,7 +41,6 @@ public class ArvoreBinariaBusca {
         int cmp = normalizada.compareTo(nodo.palavra.getNormalizada());
 
         if (cmp == 0) {
-
             nodo.palavra.atualizarOriginal(original);
 
             nodo.palavra.adicionarOcorrencia(linha);

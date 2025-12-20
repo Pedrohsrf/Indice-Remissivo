@@ -8,7 +8,7 @@ A prática de programar-bem exige atenção, prática constante e resolução de
 Praticar é essencial, e práticas diferentes geram resultados melhores.
 
 Além disso, ações eficientes dependem de organização. As ações devem ser bem planejadas,
-pois uma ação mal executada causa retrabalho.
+pois uma ação mal executada causa retrabalho .
 
 O desenvolvimento de software envolve várias áreas: back-end, front-end, testes unitários,
 modelagem-de-dados e integração-contínua.
